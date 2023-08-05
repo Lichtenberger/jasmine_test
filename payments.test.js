@@ -1,4 +1,4 @@
-describe("submitPaymentInfo", function() {
+describe("submitPaymentInfo should calculate the payment", function() {
     it("should add a curPayment object to allPayments", function() {
       submitPaymentInfo();
       expect(Object.keys(allPayments).length).toEqual(1);
@@ -66,4 +66,17 @@ describe("submitPaymentInfo", function() {
       expect(summaryTds[1].innerHTML).toEqual('$6');
       expect(summaryTds[2].innerHTML).toEqual('20%');
     });
+
+    afterEach (function() {
+      billAmtInput.value = '';
+      tipAmtInput.value = '';
+      paymentTbody.innerHTML = '';
+      summaryTds[0].innerHTML = '';
+      summaryTds[1].innerHTML = '';
+      summaryTds[2].innerHTML = '';
+      erverTbody.innerHTML = '';
+      paymentId = 0;
+      allPayments = {};
+    });
   });
+
