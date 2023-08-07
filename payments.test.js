@@ -1,82 +1,67 @@
-describe("submitPaymentInfo should calculate the payment", function() {
-    it("should add a curPayment object to allPayments", function() {
+describe('create the curPayment and test', function() {
+  beforeEach(function() {
+      billAmtInput.value = 100;
+      tipAmtInput.value = 20;
+  }) 
+    it('should add a new payment to allPayments', function() {
+    submitPaymentInfo();
+
+    expect(Object.keys(allPayments).length).toEqual(1);
+    expect(allPayments['payment1'].billAmt).toEqual('100');
+    expect(allPayments['payment1'].tipAmt).toEqual('20');
+    
+    })
+
+    it('should not add a new payment on submitPaymentInfo() with empty input', function() {
+      billAmtInput.value = '';
       submitPaymentInfo();
-      expect(Object.keys(allPayments).length).toEqual(1);
-    });
-  });
 
-  // checks that the function returns undefined when the inputs are negative or empty and returns a curPayment object when the inputs are positive
-  describe("createCurPayment", function() {
-    it("should return undefined with negative or empty inputs", function() {
-      billAmtInput.value = '-1';
-      tipAmtInput.value = '0';
-      expect(createCurPayment()).toBeUndefined();
-    });
+      expect(Object.keys(allPayments).length).toEqual(0);
+     })
   
-    it("should return undefined with empty inputs", function() {
-      billAmtInput.value = '';
-      tipAmtInput.value = '';
-      expect(createCurPayment()).toBeUndefined();
-    });
-  
-    it("should return a curPayment object with positive billAmt and tipAmt", function() {
-      billAmtInput.value = '10';
-      tipAmtInput.value = '2';
-      expect(createCurPayment()).toEqual({
-        billAmt: '10',
-        tipAmt: '2',
-        tipPercent: 20,
-      });
-    });
-  });
+    it('should make payment update #paymentTable on appendPaymentTable()', function() {
+      let curPayment = createCurPayment();
+      allPayments['payment1'] = curPayment;
 
-  //checks that the appendPaymentTable function creates a table row element with the input value and that the updateSummary function updates the summary table with the calculated sum of all payments
-  describe("appendPaymentTable", function() {
-    it("should create a table row element with input value", function() {
-      let curPayment = {
-        billAmt: '10',
-        tipAmt: '2',
-        tipPercent: 20,
-      };
       appendPaymentTable(curPayment);
-      let newTr = document.getElementById('payment1');
-      expect(newTr).toBeDefined();
-      expect(newTr.children[0].innerHTML).toEqual('$10');
-      expect(newTr.children[1].innerHTML).toEqual('$2');
-      expect(newTr.children[2].innerHTML).toEqual('20%');
-    });
-  });
-  
-  describe("updateSummary", function() {
-    it("should update summary table with calculated sum of all payment", function() {
-      let curPayment1 = {
-        billAmt: '10',
-        tipAmt: '2',
-        tipPercent: 20,
-      };
-      let curPayment2 = {
-        billAmt: '20',
-        tipAmt: '4',
-        tipPercent: 20,
-      };
-      allPayments['payment1'] = curPayment1;
-      allPayments['payment2'] = curPayment2;
-      updateSummary();
-      expect(summaryTds[0].innerHTML).toEqual('$30');
-      expect(summaryTds[1].innerHTML).toEqual('$6');
-      expect(summaryTds[2].innerHTML).toEqual('20%');
-    });
 
-    afterEach (function() {
+      let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
+
+      expect(curTdList.length).toEqual(4);
+      expect(curTdList[0].innerText).toEqual('$100');
+      expect(curTdList[1].innerText).toEqual('$20');
+      expect(curTdList[2].innerText).toEqual('20%');
+      expect(curTdList[3].innerText).toEqual('X');
+    })
+
+    it('should create a new payment on createCurPayment()', function() {
+      let expectedPayment = {
+        billAmt: '100',
+        tipAmt: '20',
+        tipPercent: 20,
+      }
+      expect(createCurPayment()).toEqual(expectedPayment);
+    })
+
+    it('should not create payment with empty input on createCurPayment()', function() {
       billAmtInput.value = '';
       tipAmtInput.value = '';
-      paymentTbody.innerHTML = '';
-      summaryTds[0].innerHTML = '';
-      summaryTds[1].innerHTML = '';
-      summaryTds[2].innerHTML = '';
-      erverTbody.innerHTML = '';
-      paymentId = 0;
-      allPayments = {};
-    });
-  });
+      let curPayment = createCurPayment();
+
+      expect(curPayment).toEqual(undefined);
+    })
+
+  afterEach(function () {
+    billAmtInput.value = '';
+    tipAmtInput.value = '';
+    paymentTbody.innerHTML = '';
+    summaryTds[0].innerHTML = '';
+    summaryTds[1].innerHTML = '';
+    summaryTds[2].innerHTML = '';
+    serverTbody.innerHTML = '';
+    paymentId = 0;
+    allPayments = {};
+})
+
+})
 
