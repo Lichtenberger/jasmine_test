@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<title>Tip Pool</title>
+<link rel="stylesheet" href="style.css" />
+
+<!-- include CSS for Jasmine -->
+<link rel="stylesheet" href="https://unpkg.com/jasmine-core/lib/jasmine-core/jasmine.css" />
+</head>
+<body>
+  <h1>Tip Pool</h1>
+
+  <section>
+    <aside>
+      <h4>Input payment info</h4>
+      <form id="paymentForm">  <!-- payments.js - let paymentForm = document.getElementById('paymentForm'); -->
+        <label for="billAmt">Bill Amount</label> <!-- payments.js - let billAmtInput = document.getElementById('billAmt'); -->
+        <input type="number" id="billAmt" autofocus /> <!-- payments.js - let billAmt = billAmtInput.value; -->
+
+        <label for="tipAmt">Tip Amount</label> <!-- payments.js - let tipAmtInput = document.getElementById('tipAmt'); -->
+        <input type="number" id="tipAmt" /> <!-- payments.js - let tipAmt = tipAmtInput.value; -->
+
+        <button>submit</button>
+      </form>
+
+      <table id="paymentTable"> <!-- payments.js - let paymentTbody = document.querySelector('#paymentTable tbody'); -->
+        <thead>
+          <tr>
+            <th>Bill amt</th>
+            <th>Tip amt</th>
+            <th>Tip percent</th>
+          </tr>
+        </thead>
+        <tbody> <!-- payments.js - let paymentTbody = document.querySelector('#paymentTable tbody'); -->
+            <!-- payments.js - let tipPercentAvg = sumPaymentTotal('tipPercent') / Object.keys(allPayments).length; -->
+        </tbody>
+      </table>
+    </aside>
+    <aside>
+      <h4>Input server info</h4>
+      <form id="serverForm">  <!-- servers.js - let serverForm = document.getElementById('serverForm'); -->
+        <label for="serverName">Server Name</label><!-- servers.js - let serverNameInput = document.getElementById('serverName'); -->
+        <input id="serverName" />  <!-- servers.js - let serverName = serverNameInput.value; -->
+
+        <button>submit</button>
+      </form>
+
+      <table id="serverTable"> <!-- servers.js let serverTbody = document.querySelector('#serverTable tbody'); -->
+        <thead>
+          <tr>
+            <th>Server Name</th>
+            <th>Earnings</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </aside>
+  </section>
+
+  <section id="summary">
+    <h3>Shift summary</h3>
+    <table id="summaryTable"> <!-- payments.js - let summaryTds = document.querySelectorAll('#summaryTable tbody tr td'); -->
+      <thead>
+        <tr>
+          <th>Bill total</th>
+          <th>Tip total</th>
+          <th>Tip percent avg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+<script src="https://unpkg.com/jasmine-core@4.1.0/lib/jasmine-core/jasmine.js"></script>
+<script src="https://unpkg.com/jasmine-core@4.1.0/lib/jasmine-core/jasmine-html.js"></script>
+<script src="https://unpkg.com/jasmine-core@4.1.0/lib/jasmine-core/boot0.js"></script>
+<script src="https://unpkg.com/jasmine-core@4.1.0/lib/jasmine-core/boot1.js"></script>
+
+<script src="jpservers.test.js"></script>
+<script src="jppayments.test.js"></script>
+<script src="jphelpers.test.js"></script>
+
+<script src="jppayments.js"></script> 
+<script src="jpservers.js"></script> 
+<script src="jphelpers.js"></script> 
+</body>
+</html>
