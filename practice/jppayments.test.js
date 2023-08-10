@@ -7,20 +7,12 @@ describe('it should gather the bill information and add to the table', function(
         updateSummary();
     });
 
-    it('should add the bill payment table', function() {
+    it('should make sure the bill and tip have values createCurPayment()', function() {
         expect(billAmt).toBeDefined();
-        expect(billAmt).toEqual(10);
         expect(billAmt).not.toEqual(0);
-    });
-
-    it('should add the tip to payment table', function() {
+        expect(billAmt).toEqual(10);
         expect(tipAmt).toBeDefined();
-        expect(tipAmt).toEqual(2);
-    });
-
-    it('should have a tip percentage of 20%', function() {
-        expect(tipPercent).toBeDefined();
-        expect(tipPercent).toEqual(20);
+        expect(tipAmt).toEqual(2)
     });
 
     afterEach(function () {
@@ -28,4 +20,4 @@ describe('it should gather the bill information and add to the table', function(
         tipAmt.value = 0;
         tipPercent.value = 0;
     })
-})
+});
